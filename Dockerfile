@@ -18,7 +18,6 @@ RUN python -m pip install --upgrade pip && \
 
 COPY api /app/api
 COPY id_engine /app/id_engine
-COPY data/experiments /app/data/experiments
 COPY data/preprocessing/experiment_17/checkpoints /app/data/preprocessing/experiment_17/checkpoints
 
 RUN useradd --create-home --uid 1000 appuser && \
