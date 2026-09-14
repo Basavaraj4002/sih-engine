@@ -1,10 +1,13 @@
 FROM python:3.12-slim
 
+# Create a non-root user
+RUN useradd -m -u 1000 appuser
+
+WORKDIR /app
+
 ENV PYTHONUNBUFFERED=1
 ENV FORCE_CPU=1
 ENV IDR_MODEL_DIR=/app/data/preprocessing/experiment_17/checkpoints
-
-WORKDIR /app
 
 # Install requirements first
 COPY requirements.txt .
@@ -13,10 +16,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the app
 COPY . .
 
-# Ensure the checkpoint exists exactly where the user wants it
-RUN mkdir -p /app/data/preprocessing/experiment_17/checkpoints && \
-    cp /app/id_engine/assets/best_deltav_gru.pt /app/data/preprocessing/experiment_17/checkpoints/ && \
-    cp /app/id_engine/assets/deltav_norm_stats.pt /app/data/preprocessing/experiment_17/checkpoints/
+# Change ownership to the non-root user
+RUN chown -R appuser:appuser /app
+
+# Switch to the non-root user
+USER appuser
 
 EXPOSE 10000
 
