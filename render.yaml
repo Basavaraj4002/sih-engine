@@ -7,3 +7,5 @@ services:
     envVars:
       - key: FORCE_CPU
         value: "1"
+      - key: PYTHON_VERSION
+        value: "3.12.0"
