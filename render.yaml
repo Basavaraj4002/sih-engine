@@ -1,9 +1,7 @@
 services:
   - type: web
     name: sih-idr-engine
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python -m uvicorn api.main:app --host 0.0.0.0 --port $PORT
+    env: docker
     envVars:
       - key: FORCE_CPU
         value: "1"
