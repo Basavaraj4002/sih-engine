@@ -1,9 +1,12 @@
 services:
   - type: web
     name: sih-idr-engine
-    env: docker
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
     envVars:
       - key: FORCE_CPU
         value: "1"
-      - key: PYTHON_VERSION
-        value: "3.12.0"
+      - key: IDR_MODEL_DIR
+        value: /app/data/preprocessing/experiment_17/checkpoints
